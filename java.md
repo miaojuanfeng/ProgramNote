@@ -129,7 +129,9 @@ synchronized实现了一致性与原子性，volatile只实现了一致性未实
 4. A->postHandle
 5. B->afterCompletion
 6. A->afterCompletion
-这么记忆，
+
+这么记忆:
+
 1. A类先调用preHandle方法后压入栈中，B类调用preHandle方法后也压入栈中。
 2. 然后从栈顶到栈底遍历每个类，调用postHandle方法。
 3. 最后从栈顶到栈底出栈，同时调用afterCompletion方法。
