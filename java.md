@@ -119,4 +119,22 @@ ApplicationContext 被初始化或刷新时，该事件被发布。这也可以�
 ### synchronized与volatile区别
 synchronized实现了一致性与原子性，volatile只实现了一致性未实现原子性，可能会因为中断产生不一致问题，如(a++)操作。
 
+### 多个springMVC拦截器的函数调用顺序
+
+定义一个普通类，实现HandlerInterceptor或WebRequestInterceptor接口，然后在xml中配置，就可使用拦截器了。
+多个拦截器A,B的执行顺序为：
+1. A->preHandle
+2. B->preHandle
+3. B->postHandle
+4. A->postHandle
+5. B->afterCompletion
+6. A->afterCompletion
+这么记忆，
+1. A类先调用preHandle方法后压入栈中，B类调用preHandle方法后也压入栈中。
+2. 然后从栈顶到栈底遍历每个类，调用postHandle方法。
+3. 最后从栈顶到栈底出栈，同时调用afterCompletion方法。
+
+### springMVC拦截器和servlet过滤器的区别
+
+
 
