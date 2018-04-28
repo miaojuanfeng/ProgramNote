@@ -4,11 +4,13 @@ context-param -> listener -> filter -> servlet，而同个类型之间的实际�
 
 ### cookie和session生命周期
 
+如果代码中显式调用request.getSession()才会创建session，否则不创建。
+
 浏览器首次访问服务器时，header头中未携带JSESSIONID，服务器为该请求创建一个新的session，将session_id通过在header头中设置set-cookie:JSESSIONID=xxx来返回给浏览器，浏览器再次访问该服务器时，会在header中带上cookie:JSESSIONID=xxx给服务器，服务器便可知道是同一请求。
 
 如果cookie未设置过期时间，cookie将存活在浏览器进程内存中，关闭浏览器后该cookie内存数据也会消失，下次再次打开浏览器访问服务器时，由于找不到cookie中的session_id，会被当成新请求处理。
 
-cookie时间设置为0时为立即销毁，设置为-1时生命周期为浏览器进程时间，设置大于0值时为存活的秒数，此时该cookie会被浏览器保存在硬盘中。
+cookie时间设置为0时为立即销毁，设置为-1时生命周期为浏览器进程时间，设置大于0值时为存活的秒数，此时该cookie会被浏览器保存在硬盘中。存储在内存中的cookie称为会话cookie，存储在硬盘上的称为持久cookie。
 
 但浏览器关闭后，服务器端的session并不会清除，因为服务器并不知浏览器关闭事件，此时session任然保存在服务器内存中直到超时。
 
