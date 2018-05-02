@@ -138,5 +138,48 @@ synchronized实现了一致性与原子性，volatile只实现了一致性未实
 
 ### springMVC拦截器和servlet过滤器的区别
 
+1. 拦截器是基于java的反射机制的，而过滤器是基于函数回调。
+2. 拦截器不依赖与servlet容器，过滤器依赖与servlet容器。
+3. 拦截器只能对action请求起作用，而过滤器则可以对几乎所有的请求起作用。
+4. 拦截器可以访问action上下文、值栈里的对象，而过滤器不能访问。
+5. 在action的生命周期中，拦截器可以多次被调用，而过滤器只能在容器初始化时被调用一次。
+6. 拦截器可以获取IOC容器中的各个bean，而过滤器就不行，这点很重要，在拦截器里注入一个service，可以调用业务逻辑。
+
+### springMVC拦截器HandlerInterceptor与WebRequestInterceptor的区别
+
+最大的区别是HandlerInterceptor接口的preHandle函数返回一个boolean值，判断是否需要继续执行拦截器之后的操作。
+
+### 解析xml的4种方式
+
+XML的解析方式分为四种：
+
+1. DOM解析
+2. SAX解析
+3. JDOM解析
+4. DOM4J解析
+
+其中前两种属于基础方法，是官方提供的平台无关的解析方式；后两种属于扩展方法，它们是在基础的方法上扩展出来的，只适用于java平台。
+
+### 何时使用jdk何时使用cglib
+
+JDK动态代理：
+
+JDK实现动态代理需要实现类通过接口定义业务方法，对于没有接口的类，如何实现动态代理呢，这就需要CGLib了。CGLib采用了非常底层的字节码技术，其原理是通过字节码技术为一个类创建子类，并在子类中采用方法拦截的技术拦截所有父类方法的调用，顺势织入横切逻辑，而JDK是采用反射方式获取委托对象。JDK动态代理与CGLib动态代理均是实现Spring AOP的基础。
+
+Cglib动态代理：
+
+JDK的动态代理机制只能代理实现了接口的类，而不能实现接口的类就不能实现JDK的动态代理，cglib是针对类来实现代理的，他的原理是对指定的目标类生成一个子类，并覆盖其中方法实现增强，但因为采用的是继承，所以不能对final修饰的类进行代理。 
+
+### springMVC依据什么决定使用jdk或cglib
+
+将事务代理工厂[TransactionProxyFactoryBean] 或 自动代理拦截器[BeanNameAutoProxyCreator]的 proxyTargetClass 属性,设置为true,则使用CGLIB代理,此属性默认为false,使用JDK动态代理。
+
+
+
+
+
+
+
+
 
 
