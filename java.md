@@ -40,8 +40,8 @@ request.setAttribute是服务器把这个对象放在该页面对应的一块内
 * ServletContextAttributeListener
 * ServletRequestAttributeListener
 * HttpSessionAttributeListener
-* HttpSessionBindingListener
-* HttpSessionActivationListener
+* HttpSessionBindingListener 加载 卸载
+* HttpSessionActivationListener 活化 钝化
 
 
 ### @Autowired注解到底是byType还是byName?
