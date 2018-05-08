@@ -23,7 +23,8 @@
 
 在spring Web中，需要初始化IOC容器，用于存放我们注入的各种对象。当tomcat启动时首先会初始化一个web对应的IOC容器，用于初始化和注入各种我们在web运行过程中需要的对象。当tomcat启动的时候是如何初始化IOC容器的，我们先看一下在web.xml中经常看到的配置：
 
-``` <context-param>  
+``` 
+<context-param>  
     <param-name>contextConfigLocation</param-name>  
     <param-value>  
         classpath:applicationContext.xml  
@@ -35,3 +36,5 @@
 ```
 
 ContextLoaderListener是一个监听器，其实现了ServletContextListener接口，其用来监听Servlet，当tomcat启动时会初始化一个Servlet容器，这样ContextLoaderListener会监听到Servlet的初始化，这样在Servlet初始化之后我们就可以在ContextLoaderListener中也进行一些初始化操作。ContextLoaderListener实现了ServletContextListener接口，所以会有两个方法contextInitialized和contextDestroyed。web容器初始化时会调用方法contextInitialized，web容器销毁时会调用方法contextDestroyed。
+
+ContextLoaderListener的方法contextInitialized（）的默认实现是在他的父类ContextLoader的initWebApplicationContext方法中实现的，意思就是初始化web应用上下文。他的主要流程就是创建一个IOC容器，并将创建的IOC容器存到servletContext中
