@@ -31,6 +31,7 @@
 </context-param>  
 <listener>  
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
-</listener> ```
+</listener> 
+```
 
-ContextLoaderListener是一个监听器，其实现了ServletContextListener接口，其用来监听Servlet，当tomcat启动时会初始化一个Servlet容器，这样ContextLoaderListener会监听到Servlet的初始化，这样在Servlet初始化之后我们就可以在ContextLoaderListener中也进行一些初始化操作。看下面的ServletContextListener的源码也是比较简单的，ContextLoaderListener实现了ServletContextListener接口，所以会有两个方法contextInitialized和contextDestroyed。web容器初始化时会调用方法contextInitialized，web容器销毁时会调用方法contextDestroyed。
+ContextLoaderListener是一个监听器，其实现了ServletContextListener接口，其用来监听Servlet，当tomcat启动时会初始化一个Servlet容器，这样ContextLoaderListener会监听到Servlet的初始化，这样在Servlet初始化之后我们就可以在ContextLoaderListener中也进行一些初始化操作。ContextLoaderListener实现了ServletContextListener接口，所以会有两个方法contextInitialized和contextDestroyed。web容器初始化时会调用方法contextInitialized，web容器销毁时会调用方法contextDestroyed。
