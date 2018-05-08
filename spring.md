@@ -18,3 +18,19 @@
 8. 如果Bean实现了BeanPostProcess接口，Spring将调用它们的postProcessAfterInitialization（后初始化）方法（作用与6的一样，只不过6是在Bean初始化前执行的，而这个是在Bean初始化后执行的，时机不同 )
 9. 经过以上的工作后，Bean将一直驻留在应用上下文中给应用使用，直到应用上下文被销毁
 10. 如果Bean实现了DispostbleBean接口，Spring将调用它的destory方法，作用与在配置文件中对Bean使用destory-method属性的作用一样，都是在Bean实例销毁前执行的方法。
+
+### ContextLoaderListener的作用
+
+在spring Web中，需要初始化IOC容器，用于存放我们注入的各种对象。当tomcat启动时首先会初始化一个web对应的IOC容器，用于初始化和注入各种我们在web运行过程中需要的对象。当tomcat启动的时候是如何初始化IOC容器的，我们先看一下在web.xml中经常看到的配置：
+
+``` <context-param>  
+    <param-name>contextConfigLocation</param-name>  
+    <param-value>  
+        classpath:applicationContext.xml  
+    </param-value>  
+</context-param>  
+<listener>  
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+</listener> ```
+
+ContextLoaderListener是一个监听器，其实现了ServletContextListener接口，其用来监听Servlet，当tomcat启动时会初始化一个Servlet容器，这样ContextLoaderListener会监听到Servlet的初始化，这样在Servlet初始化之后我们就可以在ContextLoaderListener中也进行一些初始化操作。看下面的ServletContextListener的源码也是比较简单的，ContextLoaderListener实现了ServletContextListener接口，所以会有两个方法contextInitialized和contextDestroyed。web容器初始化时会调用方法contextInitialized，web容器销毁时会调用方法contextDestroyed。
