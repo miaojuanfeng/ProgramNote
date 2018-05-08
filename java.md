@@ -174,6 +174,39 @@ JDK的动态代理机制只能代理实现了接口的类，而不能实现接�
 
 将事务代理工厂[TransactionProxyFactoryBean] 或 自动代理拦截器[BeanNameAutoProxyCreator]的 proxyTargetClass 属性,设置为true,则使用CGLIB代理,此属性默认为false,使用JDK动态代理。
 
+### 2018-03-04
+
+1. for(int x: xs){}
+2. number装箱与拆箱
+3. default
+4. /**
+    注意 == 与 equals的区别
+    == 它比较的是对象的地址
+    equals 比较的是对象的内容
+    */
+    Java 会对 -127~127 的整数进行缓存，并且注意 == 和 equals 的区别。
+5. 访问控制和继承
+	请注意以下方法继承的规则：
+	父类中声明为 public 的方法在子类中也必须为 public。
+	父类中声明为 protected 的方法在子类中要么声明为 protected，要么声明为 public，不能声明为 private。
+	父类中声明为 private 的方法，不能够被继承。
+6. String, StringBuffer, StringBuilder.  String不可改变
+7. 正则表达式
+8. 可变参数
+	JDK 1.5 开始，Java支持传递同类型的可变参数给一个方法。
+
+	方法的可变参数的声明如下所示：
+
+	typeName... parameterName
+	在方法声明中，在指定参数类型后加一个省略号(...) 。
+
+	一个方法中只能指定一个可变参数，它必须是方法的最后一个参数。任何普通的参数必须在它之前声明。
+9. Java 流(Stream)、文件(File)和IO
+10. Java Scanner 类
+11. 子类不能继承父类的构造器（构造方法或者构造函数），但是父类的构造器带有参数的，则必须在子类的构造器中显式地通过super关键字调用父类的构造器并配以适当的参数列表。
+
+如果父类有无参构造器，则在子类的构造器中用super调用父类构造器不是必须的，如果没有使用super关键字，系统会自动调用父类的无参构造器。
+
 
 
 
